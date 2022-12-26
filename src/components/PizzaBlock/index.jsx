@@ -13,7 +13,6 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
   const [typeIndex, setTypeIndex] = useState(0);
 
   const addedCount = cartItem ? cartItem.count : 0;
-  console.log(cartItem)
 
   const onClickAdd = () => {
     const item = {

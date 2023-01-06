@@ -6,30 +6,31 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import { useEffect } from "react";
 import {
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from "../redux/feauters/filterSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { fetchPizzas } from "../redux/feauters/pizzaSlice";
+import {
+  fetchPizzas,
+  selectFilter,
+  selectPizzaData,
+} from "../redux/feauters/pizzaSlice";
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { items, status } = useSelector((state) => state.pizza);
+  const { items, status } = useSelector(selectPizzaData);
 
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -132,7 +133,11 @@ const Home = ({ searchValue }) => {
     //   }
     //   return false;
     // })
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+    .map((obj) => (
+      <Link key={obj.id} to={`/pizza/${obj.id}`}>
+        <PizzaBlock {...obj} />
+      </Link>
+    ));
 
   return (
     <div className="container">

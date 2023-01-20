@@ -4,10 +4,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const FullPizza = () => {
-  const [pizza, setPizza] = useState();
+const FullPizza: React.FC = () => {
+  const [pizza, setPizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>();
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchPizza() {
@@ -18,16 +22,16 @@ const FullPizza = () => {
         setPizza(data);
       } catch (e) {
         alert("Ошибка при получении пиццы! " + e);
-        navigate("/")
+        navigate("/");
       }
     }
 
     fetchPizza();
   }, []);
-  console.log(pizza)
+  console.log(pizza);
 
-  if(!pizza) {
-      return "Загрузка"
+  if (!pizza) {
+    return <>Загрузка...</>;
   }
 
   return (

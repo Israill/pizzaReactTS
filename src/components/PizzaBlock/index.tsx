@@ -4,15 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 
 const typeNames = ["тонкое", "традиционное"];
 
-function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
+type PizzaBlockProps = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(selectCartItemById(id));
   const [sizeIndex, setSizeIndex] = useState(0);
   const [typeIndex, setTypeIndex] = useState(0);
 
   const addedCount = cartItem ? cartItem.count : 0;
-
-
 
   const onClickAdd = () => {
     const item = {
@@ -80,6 +87,6 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;

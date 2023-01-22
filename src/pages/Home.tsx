@@ -21,7 +21,7 @@ import {
   selectPizzaData,
 } from "../redux/feauters/pizzaSlice";
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
@@ -32,12 +32,12 @@ const Home = () => {
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
@@ -73,6 +73,7 @@ const Home = () => {
     //   });
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         sortBy,
         order,
@@ -133,7 +134,7 @@ const Home = () => {
     //   }
     //   return false;
     // })
-    .map((obj) => (
+    .map((obj: any) => (
       <Link key={obj.id} to={`/pizza/${obj.id}`}>
         <PizzaBlock {...obj} />
       </Link>
@@ -144,7 +145,7 @@ const Home = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(i) => onChangeCategory(i)}
+          onChangeCategory={(i: number) => onChangeCategory(i)}
         />
         <Sort />
       </div>
@@ -152,7 +153,7 @@ const Home = () => {
       {status === "error" ? (
         <div className="content__error-info">
           <h2>
-            Произошла ошибка брат <icon>😕</icon>
+            Произошла ошибка брат 😕
           </h2>
           <p>
             Пиццы получить жиес не получилось

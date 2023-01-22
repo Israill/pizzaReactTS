@@ -4,7 +4,12 @@ import { selectSort, setSort } from "../redux/feauters/filterSlice";
 import { useRef } from "react";
 import { useEffect } from "react";
 
-export const sortList = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const sortList: SortItem[] = [
   { name: "популярности (DESC)", sortProperty: "rating" },
   { name: "популярности (ASC)", sortProperty: "-rating" },
   { name: "цене (DESC)", sortProperty: "price" },
@@ -16,17 +21,17 @@ export const sortList = [
 export default function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = useState(false);
 
-  const validPopular = (i) => {
-    dispatch(setSort(i));
+  const validPopular = (obj: SortItem) => {
+    dispatch(setSort(obj));
     setOpen(!open);
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (!event.path.includes(sortRef.current)) {
         setOpen(false);
       }

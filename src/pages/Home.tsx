@@ -146,15 +146,14 @@ const Home: React.FC = () => {
         <Categories
           value={categoryId}
           onChangeCategory={(i: number) => onChangeCategory(i)}
+          getCategories={() => {}}
         />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (
         <div className="content__error-info">
-          <h2>
-            Произошла ошибка брат 😕
-          </h2>
+          <h2>Произошла ошибка брат 😕</h2>
           <p>
             Пиццы получить жиес не получилось
             <br />

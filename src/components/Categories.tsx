@@ -2,19 +2,22 @@ import React from "react";
 
 type CategoriesProps = {
   value: number;
-  onChangeCategory: any
-}
+  onChangeCategory: (i: number) => void;
+  getCategories?: (categories: string[]) => void;
+};
 
-const Categories: React.FC<CategoriesProps> = ( {value, onChangeCategory} ) => {
+const categories = [
+  "Все",
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
 
-  const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
+const Categories: React.FC<CategoriesProps> = ({ value, getCategories, onChangeCategory }) => {
+
+  getCategories?.(categories)
 
   return (
     <div className="categories">
@@ -33,6 +36,6 @@ const Categories: React.FC<CategoriesProps> = ( {value, onChangeCategory} ) => {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import qs from "qs";
 import Categories from "../components/Categories";
 import Sort, { sortList } from "../components/Sort";
@@ -34,9 +34,9 @@ const Home: React.FC = () => {
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter);
 
-  const onChangeCategory = (idx: number) => {
+  const onChangeCategory = useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
-  };
+  }, [])
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
     //   return false;
     // })
     .map((obj: any) => (
-        <PizzaBlock {...obj} />
+        <PizzaBlock key={obj.id} {...obj} />
     ));
 
   return (
@@ -152,10 +152,10 @@ const Home: React.FC = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(i: number) => onChangeCategory(i)}
+          onChangeCategory={onChangeCategory}
           getCategories={() => {}}
         />
-        <Sort />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (

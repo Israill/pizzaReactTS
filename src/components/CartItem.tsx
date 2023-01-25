@@ -2,11 +2,11 @@ import React from "react";
 import clsx from "clsx"
 import { useDispatch } from "react-redux";
 import {
-  CartItem,
   addItem,
   minusItem,
   removeItem,
-} from "../redux/feauters/cartSlice";
+} from "../redux/feauters/cart/slice";
+import { CartItem } from "../redux/feauters/cart/types";
 
 type CartItemProps = {
   id: string;
@@ -60,7 +60,7 @@ const CartItemBlock: React.FC<CartItemProps> = ({
       </div>
       <div className="cart__item-count">
         <button
-        disabled={count === 0}
+        disabled={count === 1}
           onClick={onClickMinus}
           className={clsx("button button--outline button--circle cart__item-count-minus", {"cart__item-count-minus--disabled" : count === 0,})}
         >

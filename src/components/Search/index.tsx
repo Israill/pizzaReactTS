@@ -5,7 +5,7 @@ import styles from "./Search.module.scss";
 import { useCallback } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchValue } from "../../redux/feauters/filterSlice";
+import { setSearchValue } from "../../redux/feauters/filter/slice";
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();
